@@ -72,11 +72,5 @@ export default {
       vertical-align: middle;
     }
   }
-
-  &.collapse {
-    .sidebar-logo {
-      margin-right: 0px;
-    }
-  }
 }
 </style>
