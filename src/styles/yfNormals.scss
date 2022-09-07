@@ -1,0 +1,28 @@
+$mainColor:#FFB200FF;
+$sucColor:#00BE76FF;
+$warnColor:#E19A30FF;
+$errColor:#D9021CFF;
+
+/* 中性色 */
+$mainTextColor:#332929FF;
+$subTextColor:#887E7EFF;
+$placeTextColor:#B5ABABFF;
+$tableLineColor:#F5EFEEFF;
+$bgColor:#FDFAFAFF;
+$midColorDark:#000000FF;
+$midColorlight:#FFFFFFFF;
+
+/* 文字 */
+
+:export {
+  mainColor: $mainColor;
+  sucColor: $sucColor;
+  warnColor: $warnColor;
+  errColor: $errColor;
+  mainTextColor: $mainTextColor;
+  subTextColor: $subTextColor;
+  tableLineColor: $tableLineColor;
+  bgColor: $bgColor;
+  midColorDark: $midColorDark;
+  midColorlight: $midColorlight;
+}
