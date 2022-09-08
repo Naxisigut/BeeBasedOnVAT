@@ -1,5 +1,5 @@
 <template>
-  <div>listout</div>
+  <div />
 </template>
 
 <script>
