@@ -84,9 +84,9 @@ export function resetRouter() {
   router.matcher = newRouter.matcher // reset router
 }
 
-router.beforeEach((to, from, next) => {
-  console.log('to.meta =', to)
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   console.log('to.meta =', to)
+//   next()
+// })
 
 export default router

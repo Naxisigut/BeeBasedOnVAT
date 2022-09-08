@@ -1,13 +1,17 @@
 <template>
   <div class="navbar">
+    <!-- 左侧 -->
+    <!-- <Hamburger /> -->
+    <div class="left-menu">
+      <breadcrumb class="breadcrumb-container" />
+    </div>
+    <!-- <TagsView /> -->
 
-    <breadcrumb class="breadcrumb-container" />
-
+    <!-- 右侧 -->
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <i class="el-icon-arrow-down" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
@@ -33,10 +37,14 @@
 <script>
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
+// import Hamburger from '@/components/Hamburger/index.vue'
+// import TagsView from '@/components/TagsView/index.vue'
 
 export default {
   components: {
-    Breadcrumb
+    Breadcrumb // TagsView
+
+    // Hamburger
   },
   computed: {
     ...mapGetters([
@@ -54,20 +62,26 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
+  height: 64px;
   overflow: hidden;
   position: relative;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  // background: #fff;
+  // box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  background: #f5f1f1;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%), 0 0 3px 0 rgb(0 0 0 / 4%);
 
   .breadcrumb-container {
+  }
+  .left-menu{
     float: left;
+    height: 100%;
+    line-height: 64px;
   }
 
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 50px;
+    line-height: 64px;
 
     &:focus {
       outline: none;
@@ -97,6 +111,11 @@ export default {
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
+        width: 36px;
+        height: 36px;
+        background: #fff;
+        display: flex;
+        border-radius: 6px;
 
         .user-avatar {
           cursor: pointer;
@@ -105,12 +124,14 @@ export default {
           border-radius: 10px;
         }
 
-        .el-icon-caret-bottom {
+        .el-icon-arrow-down {
           cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
+          margin: auto;
+          // position: absolute;
+          // right: -20px;
+          // top: 25px;
+          font-size: 14px;
+          font-weight: 900;
         }
       }
     }
