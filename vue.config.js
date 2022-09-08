@@ -36,6 +36,16 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    proxy: {
+      '/dev-api': {
+        target: 'http://www-wms-java.itheima.net',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/dev-api': 'ips'
+        },
+        logLevel: 'debug'
+      }
+    },
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {

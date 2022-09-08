@@ -1,39 +1,62 @@
 <template>
   <div class="searchBox">
-    <el-form ref="form" inline :model="form" class="searchForm">
-      <el-form-item v-for="option, index in formOption" :key="index" :label="option.label">
+    <el-form ref="form" inline :model="form" class="searchForm" label-position="top">
+      <el-form-item v-for="option, index in formOption" :key="index" :label="option.label" class="formItem" size="medium">
         <el-input v-model="form[option.key]" placeholder="请输入" />
       </el-form-item>
     </el-form>
-    <div class="btns">
-      <el-button type="primary" @click="onSubmit">搜索</el-button>
-      <el-button type="primary" @click="onSubmit">重置</el-button>
+    <div ref="btns" class="btns">
+      <el-button class="searchBtn" @click="apply">搜索</el-button>
+      <el-button class="resetBtn" @click="reset">重置</el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ListOut',
+  name: 'SearchBox',
   props: {
     formOption: {
-      type: Object,
+      type: Array,
       required: true
+    },
+    searchAPI: {
+      type: Function,
+      default: () => {
+        console.log('没有搜索方法')
+      }
     }
   },
   data() {
     return {
-      form: {
-
-      }
+      form: {},
+      defaultForm: {}
+    }
+  },
+  mounted() {
+    /* 根据formOption挂载响应式数据 */
+    this.formOption.forEach((option) => {
+      this.$set(this.form, option.key, '')
+    })
+    this.defaultForm = { ...this.form }
+  },
+  methods: {
+    /* 处理elementBtn点击后不还原的bug */
+    blurBtn() {
+      this.$refs.btns.children.forEach((btn) => btn.blur())
+    },
+    apply() {
+      this.searchAPI()
+      this.blurBtn()
+    },
+    reset() {
+      this.blurBtn()
+      this.form = { ...this.defaultForm }
     }
   }
 }
 </script>
 
-<style scoped>
-.searchBox{
-  display: flex;
-  width: 100%;
-}
+<style lang="scss">
+@import '~@/styles/searchBox.scss'
 </style>
