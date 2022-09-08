@@ -1,7 +1,7 @@
 <template>
   <div class="logout">
     <img src="@/assets/icons/img_touxiang_small.svg" alt="">
-    <div>{{ 1 }}</div>
+    <div>{{ name }}</div>
     <div class="divide" />
     <a href="javascript:;" @click="logout"><SvgIcon icon-class="btn_quite" /></a>
   </div>
@@ -9,11 +9,16 @@
 
 <script>
 import SvgIcon from '@/components/SvgIcon/index.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: { SvgIcon },
+  computed: {
+    ...mapGetters(['name'])
+  },
   methods: {
-    logout() {
-      console.log('logout =')
+    async logout() {
+      await this.$store.dispatch('user/logout')
+      this.$router.push('/login')
     }
   }
 }
