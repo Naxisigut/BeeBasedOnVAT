@@ -1,14 +1,22 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <img src="@/assets/img/logo.png" alt="">
       </div>
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <i class="el-icon-mobile-phone" />
         </span>
         <el-input
           ref="username"
@@ -23,7 +31,8 @@
 
       <el-form-item prop="password">
         <span class="svg-container">
-          <svg-icon icon-class="password" />
+          <!-- <svg-icon icon-class="el-icon-lock" /> -->
+          <i class="el-icon-lock" />
         </span>
         <el-input
           :key="passwordType"
@@ -41,14 +50,17 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width:100%;margin-bottom:30px;"
+        class="btn"
+        @click.native.prevent="handleLogin"
+      >立即登录</el-button>
 
     </el-form>
+
+    <div class="png" />
   </div>
 </template>
 
@@ -129,8 +141,8 @@ export default {
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#283443;
-$light_gray:#fff;
+$bg: #283443;
+$light_gray: #fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -144,7 +156,7 @@ $cursor: #fff;
   .el-input {
     display: inline-block;
     height: 47px;
-    width: 85%;
+    width: calc(100% - 50px);
 
     input {
       background: transparent;
@@ -152,44 +164,81 @@ $cursor: #fff;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
+      // color: $light_gray;
+      color: #000;
       height: 47px;
-      caret-color: $cursor;
+      caret-color: #000;
 
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
+        -webkit-text-fill-color: #000 !important;
       }
     }
   }
 
+  .btn{
+    height: 50px;
+    background: #ffb200;
+    border-radius: 8px;
+    box-shadow: 0 2px 9px 1px rgb(255 178 0 / 47%);
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: #332929;
+    line-height: 22px;
+    border: none;
+  }
+
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    // background: rgba(0, 0, 0, 0.1);
+    background: #f8f5f5;
     border-radius: 5px;
     color: #454545;
+    overflow: hidden;
   }
 }
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 
 .login-container {
-  min-height: 100%;
-  width: 100%;
-  background-color: $bg;
-  overflow: hidden;
+
+  // background-color: #fff;
+  // overflow: hidden;
+  width: 958px;
+  height: 516px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: rgb(93 93 93 / 33%) 0px 0px 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 40px;
+
+  display: flex;
+
+  .png {
+    width: 560px;
+    height: 100%;
+    background-image: url(~@/assets/img/contentBg.png);
+    background-position: 50% center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
   .login-form {
-    position: relative;
-    width: 520px;
+    flex: 1;
     max-width: 100%;
-    padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
+    padding: 72px 60px 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .tips {
@@ -206,22 +255,29 @@ $light_gray:#eee;
 
   .svg-container {
     padding: 6px 5px 6px 15px;
-    color: $dark_gray;
+    color: #b4abab;
+    background: #eae7e7;
     vertical-align: middle;
-    width: 30px;
+    width: 50px;
     display: inline-block;
+    font-size: 24px;
   }
 
   .title-container {
-    position: relative;
-
-    .title {
-      font-size: 26px;
-      color: $light_gray;
-      margin: 0px auto 40px auto;
-      text-align: center;
-      font-weight: bold;
+    // position: relative;
+    text-align: center;
+    img{
+      width: 150px;
+    height: 64px;
     }
+
+    // .title {
+    //   font-size: 26px;
+    //   color: $light_gray;
+    //   margin: 0px auto 40px auto;
+    //   text-align: center;
+    //   font-weight: bold;
+    // }
   }
 
   .show-pwd {
