@@ -59,4 +59,11 @@ export default {
   mask-size: cover!important;
   display: inline-block;
 }
+
+/* new */
+svg.menuIcon{
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+}
 </style>

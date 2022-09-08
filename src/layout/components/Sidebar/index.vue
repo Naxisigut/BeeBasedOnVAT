@@ -1,7 +1,7 @@
 <template>
-  <div :class="{'has-logo':showLogo}">
+  <div :class="{'has-logo':showLogo}" class="sideBar">
     <logo v-if="showLogo" :collapse="false" />
-    <el-scrollbar wrap-class="scrollbar-wrapper">
+    <el-scrollbar wrap-class="scrollbar-wrapper" class="midItems">
       <el-menu
         :default-active="activeMenu"
         :collapse="false"
@@ -15,6 +15,7 @@
         <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
+    <Logout />
   </div>
 </template>
 
@@ -22,9 +23,10 @@
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
+import Logout from './Logout.vue'
 
 export default {
-  components: { SidebarItem, Logo },
+  components: { SidebarItem, Logo, Logout },
   computed: {
     routes() {
       return this.$router.options.routes
@@ -47,3 +49,15 @@ export default {
   }
 }
 </script>
+
+<style scoped >
+  .sideBar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+  }
+  .midItems{
+    flex: 1;
+  }
+</style>

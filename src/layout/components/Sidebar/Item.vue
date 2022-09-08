@@ -17,10 +17,12 @@ export default {
     const vnodes = []
 
     if (icon) {
+      /* 若element中有，则以i标签渲染element的图标 */
       if (icon.includes('el-icon')) {
         vnodes.push(<i class={[icon, 'sub-el-icon']} />)
       } else {
-        vnodes.push(<svg-icon icon-class={icon}/>)
+        /* 否则，使用svg-icon组件 */
+        vnodes.push(<svg-icon icon-class={icon} class='menuIcon' />)
       }
     }
 
