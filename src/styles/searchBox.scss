@@ -29,14 +29,8 @@
 
 .searchBox {
   display: flex;
-  width: 100%;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 0 6px 0 rgb(144 142 142 / 17%);
-  padding: 30px;
-
   .btns {
-    /* padding-top: 30px; */
+    padding-top: 25px;
     width: 180px;
     margin-left: 50px;
     display: flex;
@@ -55,5 +49,6 @@
     min-width: 30%;
     max-width: 30%;
     margin-right: 30px;
+    margin-bottom: 0;
   }
 }

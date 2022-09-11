@@ -46,6 +46,9 @@ export default {
     variables() {
       return variables
     }
+  },
+  mounted() {
+    console.log('this.routes =', this.routes)
   }
 }
 </script>

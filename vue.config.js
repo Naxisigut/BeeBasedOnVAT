@@ -41,7 +41,7 @@ module.exports = {
         target: 'http://www-wms-java.itheima.net',
         changeOrigin: true,
         pathRewrite: {
-          '^/dev-api': 'ips'
+          '^/dev-api': ''
         },
         logLevel: 'debug'
       }

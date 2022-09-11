@@ -1,0 +1,70 @@
+.cardBox{
+  padding: 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 6px 0 rgb(144 142 142 / 17%);
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.detailPanel{
+  .card{
+    padding: 14px 27px 35px;
+  }
+  .el-collapse-item__header, .el-collapse-item__wrap{
+    border-bottom:  none;
+  }
+  .el-collapse-item__content{
+    padding: 0;
+  }
+  .el-collapse-item__arrow{
+    transform: rotate(90deg)
+  }
+  .el-collapse-item__arrow.is-active{
+    transform: rotate(-90deg);
+  }
+
+  /* infoPanel */
+  .infoPanel{
+    background: #fdfcf9;
+    border: 1px solid #f7f2f1;
+    padding: 25px 30px;
+    font-size: 13px;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin-bottom: -20px;
+    .info{
+      width: 25%;
+      margin-bottom: 20px;
+      span{
+        display: block;
+        &:first-child{
+          color: #887e7e;
+        }
+      }
+    }
+  }
+
+  /* infoTip */
+  .infoTip{
+    display: inline-block;
+    height: 32px;
+    line-height: 30px;
+    background: #fff9eb;
+    border: 1px solid #ffb200;
+    padding: 0 25px;
+    margin: 20px 0;
+  }
+
+  /* steps */
+  .steps{
+    padding:0 230px;
+    margin: 22px 0 37px ;
+    .is-finish{
+      color: #FFB200FF;
+      border-color: #FFB200FF;
+      
+    }
+  }
+}

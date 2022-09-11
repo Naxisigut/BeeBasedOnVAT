@@ -1,13 +1,13 @@
 <template>
-  <div class="searchBox">
+  <div class="searchBox cardBox">
     <el-form ref="form" inline :model="form" class="searchForm" label-position="top">
       <el-form-item v-for="option, index in formOption" :key="index" :label="option.label" class="formItem" size="medium">
         <el-input v-model="form[option.key]" placeholder="请输入" />
       </el-form-item>
     </el-form>
     <div ref="btns" class="btns">
-      <el-button class="searchBtn" @click="apply">搜索</el-button>
-      <el-button class="resetBtn" @click="reset">重置</el-button>
+      <el-button class="yellowBtn" @click="apply">搜索</el-button>
+      <el-button class="grayBtn" @click="reset">重置</el-button>
     </div>
   </div>
 </template>
@@ -20,10 +20,16 @@ export default {
       type: Array,
       required: true
     },
-    searchAPI: {
+    searchFunc: {
       type: Function,
       default: () => {
-        console.log('没有搜索方法')
+        console.log('没有设置搜索方法')
+      }
+    },
+    resetFunc: {
+      type: Function,
+      default: () => {
+        console.log('没有设置重置方法')
       }
     }
   },
@@ -46,11 +52,12 @@ export default {
       this.$refs.btns.children.forEach((btn) => btn.blur())
     },
     apply() {
-      this.searchAPI()
+      this.searchFunc()
       this.blurBtn()
     },
     reset() {
       this.blurBtn()
+      this.resetFunc()
       this.form = { ...this.defaultForm }
     }
   }

@@ -69,7 +69,7 @@ service.interceptors.response.use(
     //   return Promise.reject(new Error(res.message || 'Error'))
     // }
     if (res.code === 0) {
-      return res
+      return res.data
     } else {
       Message({
         message: '请求出错！！！',

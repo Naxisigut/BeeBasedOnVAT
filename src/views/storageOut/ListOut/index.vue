@@ -1,15 +1,33 @@
 <template>
   <div class="listOut">
-    <SearchBox :form-option="searchOption" :search-a-p-i="searchAPI" />
+
+    <div v-show="isInRoute" class="views">
+      <!-- 搜索卡片 -->
+      <SearchBox :form-option="searchOption" :search-func="searchFunc" :reset-func="resetFunc" />
+
+      <!-- 表格 -->
+      <ListOutTable :table-opts="tableOpts" :table-data="tableData">
+        <template #topActs>
+          <div ref="addBtn">
+            <el-button class="greenBtn" @click="add">新增出库单</el-button>
+          </div>
+        </template>
+      </ListOutTable>
+    </div>
+
+    <!-- routerView -->
+    <router-view />
   </div>
+
 </template>
 
 <script>
 import SearchBox from '@/components/SearchBox/index.vue'
-import { getPageOutList } from '@/api/storageOut'
+import { getPageOutListAPI } from '@/api/storageOut'
+import ListOutTable from './components/ListOutTable.vue'
 export default {
   name: 'ListOut',
-  components: { SearchBox },
+  components: { SearchBox, ListOutTable },
   data() {
     return {
       searchOption: [{
@@ -25,7 +43,110 @@ export default {
         key: 'ownerName'
       }
       ],
-      searchAPI: this.search
+      searchAPI: this.search,
+      tableOpts: [
+        {
+          index: 1,
+          label: '出库单号',
+          propName: 'code'
+        },
+        {
+          index: 2,
+          label: '货主运单编号',
+          propName: 'billCode'
+        },
+        {
+          index: 3,
+          label: '出库类型',
+          propName: 'type'
+        },
+        {
+          index: 4,
+          label: '货主名称',
+          propName: 'ownerName'
+        },
+        {
+          index: 5,
+          label: '出库仓库',
+          propName: 'warehouseName'
+        },
+        {
+          index: 6,
+          label: '出库库区',
+          propName: 'areaName'
+        },
+        {
+          index: 7,
+          label: '计划出库时间',
+          propName: 'planOutTime'
+        },
+        {
+          index: 8,
+          label: '货品数量',
+          propName: 'goodsNum'
+        },
+        {
+          index: 9,
+          label: '出库单状态',
+          propName: 'status'
+        },
+        {
+          index: 10,
+          label: '创建人',
+          propName: 'createName'
+        },
+        {
+          index: 11,
+          label: '创建时间',
+          propName: 'createTime'
+        }
+      ],
+      tableData: [
+        {
+          'id': '798994367153967841',
+          'createTime': '2022-09-07 19:18:22',
+          'createUser': '0',
+          'updateTime': '2022-09-08 15:00:04',
+          'updateUser': '0',
+          'code': 'HP000015',
+          'billCode': '66666666',
+          'type': '0',
+          'ownerId': '798980939605607297',
+          'warehouseId': '798976929725153313',
+          'areaId': '798977750407840001',
+          'planOutTime': '2022-09-07 00:00:00',
+          'goodsNum': 1,
+          'waveStatus': 0,
+          'carrierId': '0',
+          'license': '京1234',
+          'driverName': '胡大大',
+          'driverPhone': '15233363321',
+          'receiverName': '刘离',
+          'status': 6,
+          'remark': '',
+          'createName': '刘世娟',
+          'updateName': '刘世娟',
+          'logicDel': 1,
+          'warehouseName': '1号仓库',
+          'areaName': '存储区',
+          'carrierName': null,
+          'ownerName': '王姐',
+          'ownerCode': 'HZ000003',
+          'timeArray': null,
+          'owner': null,
+          'volumeTotal': null,
+          'goodsTotal': null,
+          'pickingEntity': null,
+          'handoverEntity': null,
+          'idMoney': null,
+          'idList': null
+        }
+      ]
+    }
+  },
+  computed: {
+    isInRoute() {
+      return this.$route.name === 'ListOut'
     }
   },
   mounted() {
@@ -33,11 +154,33 @@ export default {
   },
   methods: {
     async initSearch() {
-      const res = await getPageOutList()
-      console.log('res =', res)
+      const res = await getPageOutListAPI()
+      const data = res.records
+      this.handleData(data)
+      this.tableData = data
     },
-    async search() {
+    handleData(data) {
+      const outTypeMap = new Map([['0', 'B2B出库']])
+      const statusMap = new Map([[1, '新建'], [2, '拣货中'], [3, '已取消'], [4, '拣货完成'], [5, '交接中'], [6, '交接完成']])
+      data.forEach((item) => {
+        item.type = outTypeMap.get(item.type)
+        item.status = statusMap.get(item.status)
+      })
+    },
+    async searchFunc() {
       // wait
+    },
+    async resetFunc() {
+      // wait
+    },
+
+    /* 新增出货单 */
+    async add() {
+      this.$refs.addBtn.children.forEach((item) => item.blur()) // 修复点击后样式改变的bug
+      this.$router.push({
+        name: 'ListDetail',
+        params: { id: 'null' }
+      })
     }
 
   }

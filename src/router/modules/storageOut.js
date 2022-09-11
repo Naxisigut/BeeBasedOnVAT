@@ -6,13 +6,30 @@ export default
   component: Layout,
   redirect: '/manage-storage-out/list-out',
   name: 'StorageOut',
-  meta: { title: '出库管理', icon: 'icon_menu_ckgl_nor-1' },
+  meta: { title: '出库管理', icon: 'icon_menu_ckgl_nor-1', alwaysShow: true },
   children: [
     {
       path: 'list-out',
       name: 'ListOut',
       component: () => import('@/views/storageOut/ListOut'),
-      meta: { title: '出库单', icon: 'table' }
+      // alwaysShow: true, // 开启后会有展开箭头
+      meta: { title: '出库单', icon: 'table' },
+      children: [
+        {
+          path: 'list-detail/:id',
+          name: 'ListDetail',
+          component: () => import('@/views/storageOut/ListOut/children/ListDetail'),
+          hidden: true,
+          meta: { title: '出库单详情', icon: 'table' }
+        }
+        // {
+        //   path: 'list-detail/:id',
+        //   name: 'ListDetailEdit',
+        //   component: () => import('@/views/storageOut/ListOut/children/ListDetailEdit'),
+        //   hidden: true,
+        //   meta: { title: '出库单详情编辑', icon: 'table' }
+        // }
+      ]
     },
     {
       path: 'task-picking',
