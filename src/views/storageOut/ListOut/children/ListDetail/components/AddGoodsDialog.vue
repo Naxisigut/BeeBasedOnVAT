@@ -140,10 +140,5 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.centerPagnation{
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
+<style lang="scss">
 </style>

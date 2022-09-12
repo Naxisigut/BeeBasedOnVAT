@@ -297,7 +297,6 @@ export default {
     back() {
       this.clearBtns()
       this.$router.back()
-      this.dispatch('storageOut/init')
     },
     /* 点击提交按钮 */
     go() {

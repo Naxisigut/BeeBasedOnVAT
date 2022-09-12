@@ -3,7 +3,7 @@
 
     <div v-show="isInRoute" class="views">
       <!-- 搜索卡片 -->
-      <SearchBox :form-option="searchOption" :search-func="searchFunc" :reset-func="resetFunc" />
+      <SearchBox ref="searchBox" :form-option="searchOption" :search-func="searchFunc" :reset-func="resetFunc" />
 
       <!-- 表格 -->
       <ListOutTable :table-opts="tableOpts" :table-data="tableData">
@@ -13,6 +13,18 @@
           </div>
         </template>
       </ListOutTable>
+      <!-- 分页 -->
+      <el-pagination
+        class="centerPagnation"
+        :current-page.sync="pageInfo.current"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size.sync="pageInfo.size"
+        :page-count="1"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="pageInfo.total"
+        @size-change="handlePageChange"
+        @current-change="handlePageChange"
+      />
     </div>
 
     <!-- routerView -->
@@ -103,46 +115,51 @@ export default {
         }
       ],
       tableData: [
-        {
-          'id': '798994367153967841',
-          'createTime': '2022-09-07 19:18:22',
-          'createUser': '0',
-          'updateTime': '2022-09-08 15:00:04',
-          'updateUser': '0',
-          'code': 'HP000015',
-          'billCode': '66666666',
-          'type': '0',
-          'ownerId': '798980939605607297',
-          'warehouseId': '798976929725153313',
-          'areaId': '798977750407840001',
-          'planOutTime': '2022-09-07 00:00:00',
-          'goodsNum': 1,
-          'waveStatus': 0,
-          'carrierId': '0',
-          'license': '京1234',
-          'driverName': '胡大大',
-          'driverPhone': '15233363321',
-          'receiverName': '刘离',
-          'status': 6,
-          'remark': '',
-          'createName': '刘世娟',
-          'updateName': '刘世娟',
-          'logicDel': 1,
-          'warehouseName': '1号仓库',
-          'areaName': '存储区',
-          'carrierName': null,
-          'ownerName': '王姐',
-          'ownerCode': 'HZ000003',
-          'timeArray': null,
-          'owner': null,
-          'volumeTotal': null,
-          'goodsTotal': null,
-          'pickingEntity': null,
-          'handoverEntity': null,
-          'idMoney': null,
-          'idList': null
-        }
-      ]
+        // {
+        //   'id': '798994367153967841',
+        //   'createTime': '2022-09-07 19:18:22',
+        //   'createUser': '0',
+        //   'updateTime': '2022-09-08 15:00:04',
+        //   'updateUser': '0',
+        //   'code': 'HP000015',
+        //   'billCode': '66666666',
+        //   'type': '0',
+        //   'ownerId': '798980939605607297',
+        //   'warehouseId': '798976929725153313',
+        //   'areaId': '798977750407840001',
+        //   'planOutTime': '2022-09-07 00:00:00',
+        //   'goodsNum': 1,
+        //   'waveStatus': 0,
+        //   'carrierId': '0',
+        //   'license': '京1234',
+        //   'driverName': '胡大大',
+        //   'driverPhone': '15233363321',
+        //   'receiverName': '刘离',
+        //   'status': 6,
+        //   'remark': '',
+        //   'createName': '刘世娟',
+        //   'updateName': '刘世娟',
+        //   'logicDel': 1,
+        //   'warehouseName': '1号仓库',
+        //   'areaName': '存储区',
+        //   'carrierName': null,
+        //   'ownerName': '王姐',
+        //   'ownerCode': 'HZ000003',
+        //   'timeArray': null,
+        //   'owner': null,
+        //   'volumeTotal': null,
+        //   'goodsTotal': null,
+        //   'pickingEntity': null,
+        //   'handoverEntity': null,
+        //   'idMoney': null,
+        //   'idList': null
+        // }
+      ],
+      pageInfo: {
+        size: 10,
+        current: 1,
+        total: 0
+      }
     }
   },
   computed: {
@@ -151,14 +168,18 @@ export default {
     }
   },
   mounted() {
-    this.initSearch()
+    /* 不知道怎么回事从子路由返回时会重新触发mounted和created */
+    this.getOutboundList()
   },
   methods: {
-    async initSearch() {
-      const res = await getPageOutListAPI()
+    async getOutboundList(extraParams) {
+      const res = await getPageOutListAPI({ ...this.pageInfo, ...extraParams })
       const data = res.records
       this.handleData(data)
       this.tableData = data
+      this.pageInfo.current = +res.current
+      this.pageInfo.size = +res.size
+      this.pageInfo.total = +res.total
     },
     handleData(data) {
       const outTypeMap = new Map([['0', 'B2B出库']])
@@ -168,11 +189,17 @@ export default {
         item.status = statusMap.get(item.status)
       })
     },
-    async searchFunc() {
-      // wait
+
+    async searchFunc(params) {
+      this.getOutboundList(params)
     },
     async resetFunc() {
-      // wait
+      this.getOutboundList()
+    },
+
+    /* 无论page怎么变，都通过searchBox来更新列表，因为需要囊括其中的搜索项 */
+    handlePageChange(val) {
+      this.$refs.searchBox.apply()
     },
 
     /* 新增出货单 */
@@ -183,9 +210,7 @@ export default {
         params: { id: 'null' }
       })
     }
-  },
-  beforeEnter: (to, from, next) => {
-    next((vm) => vm.initSearch())
+
   }
 }
 </script>

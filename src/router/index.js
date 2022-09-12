@@ -85,7 +85,14 @@ export function resetRouter() {
 }
 
 // router.beforeEach((to, from, next) => {
-//   console.log('to.meta =', to)
+//   console.log('beforeEach')
+//   next()
+// })
+// router.afterEach((to, from) => {
+//   console.log('afterEach')
+// })
+// router.beforeResolve((to, from, next) => {
+//   console.log('beforeResolve')
 //   next()
 // })
 

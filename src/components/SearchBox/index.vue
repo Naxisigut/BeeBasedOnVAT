@@ -20,6 +20,7 @@ export default {
       type: Array,
       required: true
     },
+    /* 注意定义此方法时设置形参，执行时会传入data里的form */
     searchFunc: {
       type: Function,
       default: () => {
@@ -35,8 +36,7 @@ export default {
   },
   data() {
     return {
-      form: {},
-      defaultForm: {}
+      form: {}
     }
   },
   mounted() {
@@ -44,7 +44,6 @@ export default {
     this.formOption.forEach((option) => {
       this.$set(this.form, option.key, '')
     })
-    this.defaultForm = { ...this.form }
   },
   methods: {
     /* 处理elementBtn点击后不还原的bug */
@@ -52,17 +51,17 @@ export default {
       this.$refs.btns.children.forEach((btn) => btn.blur())
     },
     apply() {
-      this.searchFunc(this.form)
       this.blurBtn()
+      this.searchFunc(this.form)
     },
     reset() {
       this.blurBtn()
-      Object.keys(this.form).forEach((key) => { this.form[key] = '' }) // 清空
+      this.defaultReset()
       this.resetFunc()
-      this.form = { ...this.defaultForm }
     },
+
+    /* 可以通过ref直接调用默认重置，不进行额外操作 */
     defaultReset() {
-      this.blurBtn()
       Object.keys(this.form).forEach((key) => { this.form[key] = '' }) // 清空
     }
   }

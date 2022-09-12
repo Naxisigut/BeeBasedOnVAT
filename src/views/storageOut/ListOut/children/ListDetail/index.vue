@@ -13,17 +13,22 @@ export default {
   components: { AddOrEdit, CheckDetail },
   data() {
     return {
-
+      tempFlag: this.$store.getters.masterId
     }
   },
   computed: {
-    isNew() {
-      return this.$route.params.id === 'null'
+    isCheck() {
+      return !this.tempFlag && this.$route.params.id !== 'null'
     },
     componentId() {
-      if (this.isNew) return 'AddOrEdit'
-      return 'CheckDetail'
+      if (this.isCheck) return 'CheckDetail'
+      return 'AddOrEdit'
     }
+  },
+  /* 离开路由时销毁之前的出库单信息，方便下次渲染 */
+  beforeRouteLeave(to, from, next) {
+    this.$store.dispatch('storageOut/init')
+    next()
   }
 }
 </script>

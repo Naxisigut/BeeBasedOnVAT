@@ -65,6 +65,11 @@ const actions = {
       total: 0
     })
     commit('SET_NEW_BOUND', {})
+  },
+
+  /* 修改详情进入此页， 把 row 给 newBound */
+  editInto({ commit }, payload) {
+    commit('SET_NEW_BOUND', payload)
   }
 }
 

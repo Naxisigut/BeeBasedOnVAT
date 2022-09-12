@@ -71,10 +71,11 @@ export default {
         params: { id }
       })
     },
-    edit({ id }) {
+    edit(row) {
+      this.$store.dispatch('storageOut/editInto', row)
       this.$router.push({
         name: 'ListDetail',
-        params: { id }
+        params: { id: row.id }
       })
     },
     generate() {
