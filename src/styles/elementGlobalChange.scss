@@ -1,0 +1,81 @@
+/* 下拉框 */
+.el-select-dropdown {
+  .selected {
+    color: #FFB200FF
+  }
+}
+
+/*  输入框  */
+.el-input{
+  .el-input__inner {
+    border: 1px solid #f8f5f5;
+    background: #f8f5f5;
+    border-radius: 6px;
+  
+    &:focus {
+      border-color: #FFB200FF;
+    }
+  
+    &:hover {
+      border-color: #000;
+    }
+  }
+  
+  &.is-disabled .el-input__inner {
+    background: #f3ebeb;
+    border-color: #f3ebeb;
+    color: #b5abab;
+  }
+  &.is-focus .el-input__inner {
+    border-color: #FFB200FF !important;
+
+  }
+}
+
+/* 日期选择器 */
+.el-date-picker{
+  .today{
+    span{
+      color: #FFB200FF !important
+    }
+  }
+  .available{
+    &:hover{
+      color: #FFB200FF !important
+
+    }
+
+  }
+}
+
+/* 对话弹窗 */
+.el-dialog{
+  .el-dialog__title {
+    font-size: 16px;
+    font-weight: 700;
+}
+}
+
+.el-pagination{
+  .el-select .el-input.is-focus .el-input__inner {
+    border-color: #ffb200;
+  }
+  .el-select-dropdown__item.selected {
+    color: #ffb200;
+    font-weight: 700;
+  }
+  .el-select-dropdown .el-select-dropdown__item.hover, .el-select-dropdown .el-select-dropdown__item:hover {
+    background: #fff6e2;
+  }
+  .el-pager li.active {
+    color: #ffb200;
+    cursor: default;
+  }
+  .el-pagination__sizes .el-input .el-input__inner:hover {
+    border-color: #ffb200;
+  }
+  .el-pagination__editor.el-input .el-input__inner {
+    height: 28px;
+    font-size: 14px;
+  }
+}

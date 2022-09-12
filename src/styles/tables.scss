@@ -1,36 +1,38 @@
-
 /* 用于详情页的小表格的样式 */
-.detailTable{
+.detailTable {
+
   /* 表头行样式 */
-.headerClass {
- font-size: 13px;
- font-family: PingFangSC, PingFangSC-Medium;
- font-weight: 500;
- color: #887e7e;
- th {
-   background-color: #f8f6ee;
- }
-}
+  .headerClass {
+    font-size: 13px;
+    font-family: PingFangSC, PingFangSC-Medium;
+    font-weight: 500;
+    color: #887e7e;
 
-/* 斑马纹 */
-.el-table--striped {
- background-color: #fafafa;
-}
+    th {
+      background-color: #f8f6ee;
+    }
+  }
 
-/* hover高亮 */
-.hover-row:hover {
- td {
-   background-color: #fdf6e2 !important;
- }
-}
+  /* 斑马纹 */
+  .el-table--striped {
+    background-color: #fafafa;
+  }
 
-/* 排序 */
-.ascending i.sort-caret.ascending{
- border-bottom-color:#FFB200 !important
-}
-.descending i.sort-caret.descending{
- border-top-color:#FFB200 !important
-}
+  /* hover高亮 */
+  .hover-row:hover {
+    td {
+      background-color: #fdf6e2 !important;
+    }
+  }
+
+  /* 排序 */
+  .ascending i.sort-caret.ascending {
+    border-bottom-color: #FFB200 !important
+  }
+
+  .descending i.sort-caret.descending {
+    border-top-color: #FFB200 !important
+  }
 }
 
 /* 应用在常规页面主要表格上的样式 */
@@ -50,8 +52,7 @@
   }
 
   /* 列通用样式 */
-  .colClass {
-  }
+  .colClass {}
 
   /* 表头行样式 */
   .headerClass {
@@ -59,6 +60,7 @@
     font-family: PingFangSC, PingFangSC-Medium;
     font-weight: 500;
     color: #887e7e;
+
     th {
       background-color: #f8f6ee;
     }
@@ -76,24 +78,65 @@
     }
   }
 
-    /* 排序 */
-    .ascending i.sort-caret.ascending{
-    border-bottom-color:#FFB200 !important
+  /* 排序 */
+  .ascending i.sort-caret.ascending {
+    border-bottom-color: #FFB200 !important
   }
-  .descending i.sort-caret.descending{
-    border-top-color:#FFB200 !important
+
+  .descending i.sort-caret.descending {
+    border-top-color: #FFB200 !important
   }
 
   /* 操作列样式 */
-  .rowActs{
+  .rowActs {
     display: flex;
     justify-content: space-evenly;
-    a{
+
+    a {
       color: #FFB200;
+
       // margin-right: 10px;
-      &:hover{
+      &:hover {
         color: #ff8e00;
       }
     }
   }
+}
+
+/* 应用在添加货品弹窗的货品表格样式 */
+.goodsTable {
+
+  /* 表头行样式 */
+  .headerClass {
+    font-size: 13px;
+    font-family: PingFangSC, PingFangSC-Medium;
+    font-weight: 500;
+    color: #887e7e;
+
+    th {
+      background-color: #f8f6ee;
+    }
+  }
+
+  /* 斑马纹 */
+  .el-table--striped {
+    background-color: #fafafa;
+  }
+
+  /* hover高亮 */
+  .hover-row:hover {
+    td {
+      background-color: #fdf6e2 !important;
+    }
+  }
+
+  /* checkBox */
+  .el-checkbox__input.is-checked .el-checkbox__inner,
+   .el-checkbox__input.is-indeterminate .el-checkbox__inner{
+    background-color: #FFB200FF;
+    border-color: #FFB200FF;
+  }
+  .el-checkbox__inner:hover{
+     border-color: #FFB200FF;
+   }
 }

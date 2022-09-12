@@ -18,10 +18,10 @@ export const getDetailAPI = (id) => request({
 })
 
 /* 新建出库单 */
-export const addNewOutAPI = (params) => request({
+export const addNewOutAPI = (data) => request({
   url: 'ips/outbound',
   method: 'post',
-  params
+  data
 })
 
 /* 获取所有货主列表 */
@@ -40,4 +40,53 @@ export const getNextCodeAPI = (name) => request({
 export const getWareHouseListAPI = () => request({
   url: 'api/warehouse/list',
   params: { status: 1 }
+})
+
+/* 根据仓库Id获取可用库区列表 */
+export const getWareAreaListAPI = (warehouseId) => request({
+  url: 'api/area/list',
+  params: { warehouseId }
+})
+
+/* 获取承运商列表 */
+export const getCarrierListAPI = () => request({
+  url: 'api/carrier/list'
+})
+
+/* 获取库存明细列表 */
+export const getStockListAPI = (params) => request({
+  url: 'ips/stock/pageDetail',
+  params
+})
+
+/* 提交货品 */
+export const addStockToListAPI = (data) => request({
+  url: 'ips/outboundList/batch',
+  method: 'post',
+  data
+})
+
+/* 根据masterId删除出货清单 */
+export const delOutboundListAPI = (masterId) => request({
+  url: 'ips/outboundList/masterId',
+  method: 'delete',
+  params: { masterId }
+})
+
+/* 查询单个出库清单详情 */
+export const getAddedGoodsAPI = (params) => request({
+  url: 'ips/outboundList/pageDetail',
+  params
+})
+// /* 获取出货清单相关库存列表 */
+// export const getOutboundStockListAPI = (masterId) => request({
+//   url: 'ips/outboundList/stockIds',
+//   params: { masterId }
+// })
+
+/* 修改出库清单的货品数量详情 */
+export const changeNumAPI = (data) => request({
+  url: 'ips/outboundList',
+  method: 'put',
+  data
 })

@@ -1,6 +1,6 @@
+
+/* btn color&shadow */
 .yellowBtn {
-  padding: 12px 26px;
-  height: 40px;
   background: rgb(255, 178, 0);
   box-shadow: 0px 2px 6px rgba(144, 142, 142, 0.17);
   border-radius: 20px;
@@ -17,8 +17,6 @@
 }
 
 .greenBtn{
-  padding: 12px 26px;
-  height: 40px;
   background: rgb(0, 190, 118);;
   box-shadow: 0px 2px 9px rgba(255, 178, 0, 0.17);
   border-radius: 20px;
@@ -35,8 +33,6 @@
 }
 
 .grayBtn {
-  padding: 12px 26px;
-  height: 40px;
   color: #332929;
   background: rgb(248, 245, 245);
   box-shadow: 0px 2px 6px rgba(144, 142, 142, 0.17);
@@ -50,3 +46,26 @@
     color: #332929;
   }
 }
+
+/* btn size */
+.biggerBtn{
+  padding: 13px 64px;
+}
+.normalBtn{
+  padding: 13px 26px;
+}
+
+
+/* btn layout */
+.centerBtns {
+  padding-top: 25px;
+  margin-left: 50px;
+  display: flex;
+  justify-content: center;
+  }
+.leftBtns {
+  padding-top: 25px;
+  margin-left: 50px;
+  display: flex;
+  justify-content: start;
+  }

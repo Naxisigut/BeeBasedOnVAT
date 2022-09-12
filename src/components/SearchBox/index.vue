@@ -6,8 +6,8 @@
       </el-form-item>
     </el-form>
     <div ref="btns" class="btns">
-      <el-button class="yellowBtn" @click="apply">搜索</el-button>
-      <el-button class="grayBtn" @click="reset">重置</el-button>
+      <el-button class="yellowBtn normalBtn" @click="apply">搜索</el-button>
+      <el-button class="grayBtn normalBtn" @click="reset">重置</el-button>
     </div>
   </div>
 </template>
@@ -52,13 +52,18 @@ export default {
       this.$refs.btns.children.forEach((btn) => btn.blur())
     },
     apply() {
-      this.searchFunc()
+      this.searchFunc(this.form)
       this.blurBtn()
     },
     reset() {
       this.blurBtn()
+      Object.keys(this.form).forEach((key) => { this.form[key] = '' }) // 清空
       this.resetFunc()
       this.form = { ...this.defaultForm }
+    },
+    defaultReset() {
+      this.blurBtn()
+      Object.keys(this.form).forEach((key) => { this.form[key] = '' }) // 清空
     }
   }
 }

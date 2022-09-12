@@ -30,18 +30,19 @@ export default {
   components: { SearchBox, ListOutTable },
   data() {
     return {
-      searchOption: [{
-        label: '出库单号',
-        key: 'code'
-      },
-      {
-        label: '运单编号',
-        key: 'billCode'
-      },
-      {
-        label: '货主名称',
-        key: 'ownerName'
-      }
+      searchOption: [
+        {
+          label: '出库单号',
+          key: 'code'
+        },
+        {
+          label: '运单编号',
+          key: 'billCode'
+        },
+        {
+          label: '货主名称',
+          key: 'ownerName'
+        }
       ],
       searchAPI: this.search,
       tableOpts: [
@@ -182,7 +183,9 @@ export default {
         params: { id: 'null' }
       })
     }
-
+  },
+  beforeEnter: (to, from, next) => {
+    next((vm) => vm.initSearch())
   }
 }
 </script>

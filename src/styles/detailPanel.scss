@@ -46,6 +46,19 @@
     }
   }
 
+
+
+  /* steps */
+  .steps{
+    padding:0 230px;
+    margin: 22px 0 37px ;
+    .is-finish{
+      color: #FFB200FF;
+      border-color: #FFB200FF;
+    }
+  }
+}
+
   /* infoTip */
   .infoTip{
     display: inline-block;
@@ -56,15 +69,3 @@
     padding: 0 25px;
     margin: 20px 0;
   }
-
-  /* steps */
-  .steps{
-    padding:0 230px;
-    margin: 22px 0 37px ;
-    .is-finish{
-      color: #FFB200FF;
-      border-color: #FFB200FF;
-      
-    }
-  }
-}
