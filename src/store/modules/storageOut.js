@@ -1,7 +1,8 @@
 import { Message } from 'element-ui'
 import { getAddedGoodsAPI,
   addNewOutAPI,
-  delOutboundListAPI
+  delOutboundListAPI,
+  updateOutboundAPI
 } from '@/api/storageOut'
 
 const state = {
@@ -41,6 +42,12 @@ const actions = {
     const res = await addNewOutAPI(params)
     await commit('SET_NEW_BOUND', res)
     await delOutboundListAPI(state.newBound.id) // 这一步是示例做的，不知道为什么
+  },
+
+  /* 更新出货单 */
+  async updateExistBound({ commit }, params) {
+    const res = await updateOutboundAPI(params)
+    await commit('SET_NEW_BOUND', res)
   },
 
   /* 更新已添加的货品列表 */

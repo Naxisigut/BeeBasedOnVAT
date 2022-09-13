@@ -35,6 +35,7 @@ import SearchBox from '@/components/SearchBox/index.vue'
 import { getStockListAPI, addStockToListAPI } from '@/api/storageOut'
 import NoGoods from '@/components/NoGoods/index.vue'
 import GoodsTable from './GoodsTable.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: { SearchBox, NoGoods, GoodsTable },
   props: {
@@ -45,10 +46,6 @@ export default {
     searchParams: {
       type: Object,
       default: () => ({})
-    },
-    masterId: {
-      type: String,
-      default: ''
     }
   },
   data() {
@@ -89,7 +86,8 @@ export default {
         current: this.pageInfo.currentPage,
         ...this.searchParams
       }
-    }
+    },
+    ...mapGetters(['masterId'])
   },
   watch: {
     visible(val) {

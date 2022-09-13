@@ -12,6 +12,11 @@ export const getSingleDetailAPI = (masterId) => request({
   params: { masterId }
 })
 
+/* 查询单个出库单 */
+export const getOutboundAPI = (id) => request({
+  url: 'ips/outbound/:id'.replace(':id', id)
+})
+
 /* 查询单个出库单详情 */
 export const getDetailAPI = (id) => request({
   url: 'ips/outbound/detail/:id'.replace(':id', id)
@@ -21,6 +26,13 @@ export const getDetailAPI = (id) => request({
 export const addNewOutAPI = (data) => request({
   url: 'ips/outbound',
   method: 'post',
+  data
+})
+
+/* 修改出库单 */
+export const updateOutboundAPI = (data) => request({
+  url: 'ips/outbound',
+  method: 'put',
   data
 })
 

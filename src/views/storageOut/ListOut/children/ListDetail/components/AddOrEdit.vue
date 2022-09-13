@@ -39,8 +39,19 @@
           </el-form-item>
           <!--  -->
           <el-form-item label="货主" prop="ownerId">
-            <el-select v-model="form.ownerId" placeholder="请输入货主名称/编码" filterable remote :remote-method="remoteMethod">
-              <el-option v-for="item in ownerListForSearch" :key="item.id" :label="item.name" :value="item.id" />
+            <el-select
+              v-model="form.ownerId"
+              remote
+              filterable
+              placeholder="请输入货主名称/编码"
+              :remote-method="remoteMethod"
+            >
+              <el-option
+                v-for="item in ownerListForSearch"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              />
             </el-select>
           </el-form-item>
           <!--  -->
@@ -97,11 +108,14 @@
 
       <!-- step2 添加货品 -->
       <div v-show="currStep === 2">
-        <div class="addGoodsBtns leftBtns">
+        <!-- 操作货品按钮 -->
+        <div class="addGoodsBtns leftBtns" style="margin-left: 0">
           <el-button class="greenBtn normalBtn" @click="showAddDialog = true">添加货品</el-button>
           <el-button class="grayBtn normalBtn" @click="delGoods">删除货品</el-button>
         </div>
+        <!-- 无数据显示 -->
         <NoGoods v-show="!addedGoods.length" />
+        <!-- 已添加货品表格 -->
         <AddedGoodsTable v-show="addedGoods.length" ref="addedGoodsTable" />
       </div>
 
@@ -114,7 +128,10 @@
       </div>
 
       <!-- 添加货品弹窗 -->
-      <AddGoodsDialog :visible.sync="showAddDialog" :search-params="goodsParams" :master-id="masterId" />
+      <AddGoodsDialog
+        :visible.sync="showAddDialog"
+        :search-params="goodsParams"
+      />
     </div>
   </div>
 </template>
@@ -125,13 +142,14 @@ import {
   getOwnerListAPI,
   getCarrierListAPI,
   getWareAreaListAPI,
-  getWareHouseListAPI } from '@/api/storageOut'
+  getWareHouseListAPI,
+  getOutboundAPI } from '@/api/storageOut'
 import AddGoodsDialog from './AddGoodsDialog.vue'
 import NoGoods from '@/components/NoGoods/index.vue'
 import AddedGoodsTable from './AddedGoodsTable.vue'
 import { mapGetters } from 'vuex'
 export default {
-  components: { AddGoodsDialog, NoGoods, AddedGoodsTable, AddedGoodsTable },
+  components: { AddGoodsDialog, NoGoods, AddedGoodsTable },
   data() {
     return {
       /* 提交出库单相关 */
@@ -185,6 +203,9 @@ export default {
         ownerId: this.form.ownerId
       }
     },
+    isNew() {
+      return this.$route.params.id === 'null'
+    },
     ...mapGetters(['addedGoods', 'masterId'])
   },
   watch: {
@@ -195,11 +216,28 @@ export default {
     }
   },
   async mounted() {
-    this.getNextCode()
-    this.getOwnerList()
-    this.getWareHouseList()
+    await this.getOwnerList()
+    await this.getWareHouseList()
+    if (this.isNew) await this.getNextCode()
+    else {
+      await this.getExistBound()
+      this.handleExistForm()
+    }
   },
   methods: {
+    /* 已存在的出库单查询简单信息 */
+    async getExistBound() {
+      const res = await getOutboundAPI(this.$route.params.id)
+      this.form = res
+    },
+    /* 处理修改详情时已存在的表单 */
+    handleExistForm() {
+      // 处理货主
+      const ownerName = this.ownerList.find((item) => item.id === this.form.ownerId).name
+      this.remoteMethod(ownerName)
+      // 处理库区
+      this.dealWareChange(this.form.warehouseId)
+    },
     /* 获取出库单号 */
     async getNextCode() {
       this.nextCode = await getNextCodeAPI()
@@ -226,23 +264,41 @@ export default {
     async getCarrierList() {
       this.carrierList = await getCarrierListAPI()
     },
-    /* 提交出库单 */
-    async addNewOutBound() {
+    /* 提交/更新出库单 */
+    async handleOutBound() {
       const finalForm = { ...this.form }
-      finalForm.id = 'null'
+      finalForm.id = this.isNew ? 'null' : this.masterId
       finalForm.status = 1
       finalForm.ownerName = this.ownerList.find((item) => item.id === this.form.ownerId).name
       try {
-        await this.$store.dispatch('storageOut/addNewBound', finalForm)
-        this.$message.success('新增出货单成功')
+        await this.$store.dispatch(
+          this.isNew
+            ? 'storageOut/addNewBound'
+            : 'storageOut/updateExistBound',
+          finalForm)
+        this.$message.success(`${this.isNew ? '新增' : '修改'}出货单成功`)
       } catch (error) {
         this.currStep--
-        this.$message.error('新增出货单失败')
+        this.$message.error(`${this.isNew ? '新增' : '修改'}出货单失败`)
       }
     },
+    // /* 修改出库单 */
+    // async updateOutbound() {
+    //   const finalForm = { ...this.form }
+    //   finalForm.id = this.masterId
+    //   finalForm.status = 1
+    //   finalForm.ownerName = this.ownerList.find((item) => item.id === this.form.ownerId).name
+    //   try {
+    //     await this.$store.dispatch('storageOut/updateExistBound', finalForm)
+    //     this.$message.success('修改出货单成功')
+    //   } catch (error) {
+    //     this.currStep--
+    //     this.$message.error('修改出货单失败')
+    //   }
+    // },
     /* 根据出库单编号获取已添加的货品详情 */
     async getAddedGoods() {
-      // await this.$store.dispatch('storageOut/getAddedGoods')
+      await this.$store.dispatch('storageOut/getAddedGoods', { masterId: this.masterId })
     },
     /* 货主下拉框搜索 */
     remoteMethod(query) {
@@ -283,7 +339,7 @@ export default {
         return this.valiAndCb(valiArr1, this.getCarrierList)
       }
       if (this.currStep === 1) {
-        await this.valiAndCb(valiArr2, this.addNewOutBound)
+        await this.valiAndCb(valiArr2, this.handleOutBound)
         await this.$refs.addedGoodsTable.getGoodsList()
         return
       }

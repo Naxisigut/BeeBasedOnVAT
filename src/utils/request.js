@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
@@ -79,12 +79,21 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    console.log({ error }) // for debug
+    const { response, message } = error
+    if (response.status === 500) {
+      const arr = response.data.message.split('message=')
+      // console.log('arr =', arr)
+      const arr2 = arr[1].split(', code=-1')
+      const msg = arr2[0]
+      Message.error(msg)
+    } else {
+      Message({
+        message: message,
+        type: 'error',
+        duration: 5 * 1000
+      })
+    }
     return Promise.reject(error)
   }
 )

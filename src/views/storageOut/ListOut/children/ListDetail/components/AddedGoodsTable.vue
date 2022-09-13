@@ -2,7 +2,7 @@
   <div class="goodsTable">
     <div class="infoTip">合计：
       <span style="color:#FFB200FF">{{ num }}个</span> 货品
-      总体积<span style="color:#FFB200FF">{{ vol }}m^3</span>
+      总体积 <span style="color:#FFB200FF">{{ vol }}m<sup>3</sup></span>
     </div>
     <el-table
       border
@@ -150,10 +150,11 @@ export default {
     },
     ...mapGetters(['masterId']),
     num() {
-      return this.goodsList.reduce((curr, item) => curr + item.outboundNum, 0)
+      return this.goodsList.reduce((curr, item) => curr + (+item.outboundNum), 0)
     },
     vol() {
-      return this.goodsList.reduce((curr, item) => curr + item.outboundNum * item.goodsVolume, 0)
+      const temp = this.goodsList.reduce((curr, item) => curr + item.outboundNum * item.goodsVolume, 0)
+      return temp.toFixed(1)
     }
   },
   methods: {
@@ -177,25 +178,40 @@ export default {
       const num = e.target.parentNode.children[0]
       const ipt = e.target.parentNode.children[1]
       const icon = e.target
+      icon.classList.toggle('el-icon-edit')
+      icon.classList.toggle('el-icon-check')
+      /* 控制两个元素的显隐 */
       if (num.style.display !== 'none') {
         num.style.display = 'none'
         ipt.style.display = 'inline-block'
         ipt.querySelector('input').focus()
       } else {
-        num.style.display = 'inline'
-        ipt.style.display = 'none'
-        await this.changeGoodsNum({ outboundNum, id })
-        await this.$store.dispatch('storageOut/updateAddedGoods')
+        /* 非0判断 */
+        try {
+          num.style.display = 'inline'
+          ipt.style.display = 'none'
+          if (+outboundNum) {
+            await this.changeGoodsNum({ outboundNum, id })
+          } else {
+            this.$message.warning('不能修改数量为0！请直接删除')
+          }
+        } catch (error) {
+          console.log('error =', error)
+        } finally {
+          await this.$store.dispatch('storageOut/updateAddedGoods')
+        }
       }
-
-      icon.classList.toggle('el-icon-edit')
-      icon.classList.toggle('el-icon-check')
     }
   }
 }
 </script>
 
 <style lang="scss">
+.super{
+  vertical-align: text-top;
+  font-size: 12px;
+  color: red;
+}
 .iStyle{
   color:#FFB200FF;
   float: right;
