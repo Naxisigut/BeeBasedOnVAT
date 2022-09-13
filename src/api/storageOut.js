@@ -36,6 +36,13 @@ export const updateOutboundAPI = (data) => request({
   data
 })
 
+/* 取消出库单 */
+export const delOutboundAPI = (data) => request({
+  url: 'ips/outbound/cancel',
+  method: 'put',
+  data
+})
+
 /* 获取所有货主列表 */
 export const getOwnerListAPI = (params) => request({
   url: 'api/owner/list',
@@ -102,3 +109,13 @@ export const changeNumAPI = (data) => request({
   method: 'put',
   data
 })
+
+/* 拣货 */
+
+/* 修改出库清单的货品数量详情 */
+export const addPickTaskAPI = (data) => request({
+  url: 'ips/outbound/picking',
+  method: 'post',
+  data
+})
+

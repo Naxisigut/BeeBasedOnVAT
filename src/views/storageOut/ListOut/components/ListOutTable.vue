@@ -1,5 +1,5 @@
 <template>
-  <div class="listOutTable mainTable">
+  <div v-loading="loading" class="listOutTable mainTable">
     <div class="table">
       <!-- actBox -->
       <div class="actBox">
@@ -42,17 +42,33 @@
               <a v-if="row.status !== '新建' " href="javascript:;" @click="detail(row)">查看详情</a>
               <a v-if="row.status === '新建' " href="javascript:;" @click="edit(row)">修改详情</a>
               <a v-if="row.status === '新建' " href="javascript:;" @click="generate(row)">生成拣货任务</a>
-              <a v-if="row.status === '新建' " href="javascript:;" @click="cancel(row)">取消</a>
+              <a v-if="row.status === '新建' " href="javascript:;" @click="cancelQuery(row)">取消</a>
             </div>
           </template>
         </el-table-column>
         <!-- </el-scrollbar> -->
       </el-table>
     </div>
+
+    <!-- 取消确认弹窗 -->
+    <el-dialog
+      title="取消确认"
+      :visible.sync="showCancel"
+      width="30%"
+    >
+      <span>确认要取消出库单{{ cancelRow.code }}吗？</span>
+      <template #footer>
+        <div class="rightBtns">
+          <el-button class="normalBtn grayBtn" @click="showCancel = false">取 消</el-button>
+          <el-button class="normalBtn yellowBtn" @click="cancel">确 定</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { addPickTaskAPI, delOutboundAPI } from '@/api/storageOut'
 export default {
   props: {
     tableData: {
@@ -62,6 +78,13 @@ export default {
     tableOpts: {
       type: Array,
       default: () => []
+    }
+  },
+  data() {
+    return {
+      showCancel: false,
+      cancelRow: {},
+      loading: false
     }
   },
   methods: {
@@ -78,81 +101,34 @@ export default {
         params: { id: row.id }
       })
     },
-    generate() {
-
+    async generate({ id }) {
+      const { errors, results } = await addPickTaskAPI([id])
+      if (errors.length) {
+        this.$message.error(errors[0])
+      }
     },
-    cancel() {
-
+    cancelQuery(row) {
+      this.cancelRow = row
+      this.showCancel = true
+    },
+    async cancel() {
+      try {
+        this.loading = true
+        await delOutboundAPI({ id: this.cancelRow.id })
+        this.loading = false
+        this.$message.success('取消成功')
+      } catch (error) {
+        console.log('error =', error)
+      } finally {
+        this.showCancel = false
+        this.$emit('update')
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-// .mainTable {
-//   background-color: #fff;
-//   border-radius: 12px;
-//   box-shadow: 0 0 6px 0 rgb(144 142 142 / 17%);
-
-//   /* actBox样式 */
-//   .actBox {
-//     padding: 20px 30px;
-//   }
-
-//   .el-table {
-//     font-size: 13px;
-//     color: black;
-//   }
-
-//   /* 列通用样式 */
-//   .colClass {
-//   }
-
-//   /* 表头行样式 */
-//   .headerClass {
-//     font-size: 13px;
-//     font-family: PingFangSC, PingFangSC-Medium;
-//     font-weight: 500;
-//     color: #887e7e;
-//     th {
-//       background-color: #f8f6ee;
-//     }
-//   }
-
-//   /* 斑马纹 */
-//   .el-table--striped {
-//     background-color: #fafafa;
-//   }
-
-//   /* hover高亮 */
-//   .hover-row:hover {
-//     td {
-//       background-color: #fdf6e2 !important;
-//     }
-//   }
-
-//     /* 排序 */
-//     .ascending i.sort-caret.ascending{
-//     border-bottom-color:#FFB200 !important
-//   }
-//   .descending i.sort-caret.descending{
-//     border-top-color:#FFB200 !important
-//   }
-
-//   /* 操作列样式 */
-//   .rowActs{
-//     display: flex;
-//     justify-content: space-evenly;
-//     a{
-//       color: #FFB200;
-//       // margin-right: 10px;
-//       &:hover{
-//         color: #ff8e00;
-//       }
-//     }
-//   }
-// }
-
 //  ::-webkit-scrollbar {
 //  width: 6px;
 //  height: 8px;

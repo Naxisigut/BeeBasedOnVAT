@@ -6,13 +6,14 @@
       <SearchBox ref="searchBox" :form-option="searchOption" :search-func="searchFunc" :reset-func="resetFunc" />
 
       <!-- 表格 -->
-      <ListOutTable :table-opts="tableOpts" :table-data="tableData">
+      <ListOutTable :table-opts="tableOpts" :table-data="tableData" @update="handlePageChange">
         <template #topActs>
           <div ref="addBtn">
             <el-button class="greenBtn" @click="add">新增出库单</el-button>
           </div>
         </template>
       </ListOutTable>
+
       <!-- 分页 -->
       <el-pagination
         class="centerPagnation"
@@ -198,7 +199,7 @@ export default {
     },
 
     /* 无论page怎么变，都通过searchBox来更新列表，因为需要囊括其中的搜索项 */
-    handlePageChange(val) {
+    handlePageChange() {
       this.$refs.searchBox.apply()
     },
 

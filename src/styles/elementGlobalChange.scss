@@ -50,12 +50,20 @@
 
 /* 对话弹窗 */
 .el-dialog{
+  .el-dialog__header{
+    height: 56px;
+    background: #fff;
+    box-shadow: 0 0 6px 0 rgb(144 142 142 / 17%);
+    padding: 17px 30px 20px;
+  }
   .el-dialog__title {
     font-size: 16px;
     font-weight: 700;
+    box-shadow: 0 0 6px 0 rgb(144 142 142 / 17%);
 }
 }
 
+/* 分页 */
 .el-pagination{
   .el-select .el-input.is-focus .el-input__inner {
     border-color: #ffb200;
@@ -79,3 +87,14 @@
     font-size: 14px;
   }
 }
+
+/* messageBox */
+// .el-message-box{
+//   .el-message-box__header{
+//     height: 56px;
+//     background: #fff;
+//     box-shadow: 0 0 6px 0 rgb(144 142 142 / 17%);
+//     padding: 17px 30px 20px;
+//     font-weight: 700;
+//   }
+// }

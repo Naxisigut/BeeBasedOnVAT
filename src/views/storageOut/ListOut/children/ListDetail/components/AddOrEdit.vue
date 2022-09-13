@@ -56,7 +56,11 @@
           </el-form-item>
           <!--  -->
           <el-form-item label="出库类型" prop="type">
-            <el-select v-model="form.type" filterable remote :remote-method="remoteMethod" placeholder="请选择">
+            <el-select
+              v-model="form.type"
+              filterable
+              placeholder="请选择"
+            >
               <el-option label="B2B出库" value="0" />
             </el-select>
           </el-form-item>
@@ -282,20 +286,6 @@ export default {
         this.$message.error(`${this.isNew ? '新增' : '修改'}出货单失败`)
       }
     },
-    // /* 修改出库单 */
-    // async updateOutbound() {
-    //   const finalForm = { ...this.form }
-    //   finalForm.id = this.masterId
-    //   finalForm.status = 1
-    //   finalForm.ownerName = this.ownerList.find((item) => item.id === this.form.ownerId).name
-    //   try {
-    //     await this.$store.dispatch('storageOut/updateExistBound', finalForm)
-    //     this.$message.success('修改出货单成功')
-    //   } catch (error) {
-    //     this.currStep--
-    //     this.$message.error('修改出货单失败')
-    //   }
-    // },
     /* 根据出库单编号获取已添加的货品详情 */
     async getAddedGoods() {
       await this.$store.dispatch('storageOut/getAddedGoods', { masterId: this.masterId })
