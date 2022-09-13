@@ -57,7 +57,6 @@ export default {
           key: 'ownerName'
         }
       ],
-      searchAPI: this.search,
       tableOpts: [
         {
           index: 1,

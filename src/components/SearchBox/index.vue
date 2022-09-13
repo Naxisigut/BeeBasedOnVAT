@@ -2,7 +2,9 @@
   <div class="searchBox cardBox">
     <el-form ref="form" inline :model="form" class="searchForm" label-position="top">
       <el-form-item v-for="option, index in formOption" :key="index" :label="option.label" class="formItem" size="medium">
-        <el-input v-model="form[option.key]" placeholder="请输入" />
+        <slot :name="`slot${index}`" :value="form">
+          <el-input v-model="form[option.key]" placeholder="请输入" />
+        </slot>
       </el-form-item>
     </el-form>
     <div ref="btns" class="btns">

@@ -207,11 +207,6 @@ export default {
 </script>
 
 <style lang="scss">
-.super{
-  vertical-align: text-top;
-  font-size: 12px;
-  color: red;
-}
 .iStyle{
   color:#FFB200FF;
   float: right;
@@ -221,16 +216,6 @@ export default {
   .el-input__inner{
     height: 22px;
     line-height: 22px;
-  }
-}
-.editingCell{
-  span{
-    display: none;
-  }
-}
-.noEditingCell{
-  div{
-    display: none;
   }
 }
 </style>

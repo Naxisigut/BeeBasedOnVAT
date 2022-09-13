@@ -22,20 +22,29 @@ export default
           hidden: true,
           meta: { title: '出库单详情', icon: 'table' }
         }
-        // {
-        //   path: 'list-detail/:id',
-        //   name: 'ListDetailEdit',
-        //   component: () => import('@/views/storageOut/ListOut/children/ListDetailEdit'),
-        //   hidden: true,
-        //   meta: { title: '出库单详情编辑', icon: 'table' }
-        // }
       ]
     },
     {
       path: 'task-picking',
       name: 'TaskPicking',
       component: () => import('@/views/storageOut/TaskPicking'),
-      meta: { title: '拣货任务', icon: 'table' }
+      meta: { title: '拣货任务', icon: 'table' },
+      children: [
+        {
+          path: 'pick-detail/:id',
+          name: 'PickDetail',
+          component: () => import('@/views/storageOut/TaskPicking/children/PickDetail'),
+          hidden: true,
+          meta: { title: '拣货详情', icon: 'table' }
+        },
+        {
+          path: 'pick-record-in/:id',
+          name: 'PickRecordIn',
+          component: () => import('@/views/storageOut/TaskPicking/children/PickRecordIn'),
+          hidden: true,
+          meta: { title: '拣货录入', icon: 'table' }
+        }
+      ]
     },
     {
       path: 'manage-task-transfer',

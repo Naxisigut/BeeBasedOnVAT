@@ -110,8 +110,6 @@ export const changeNumAPI = (data) => request({
   data
 })
 
-/* 拣货 */
-
 /* 修改出库清单的货品数量详情 */
 export const addPickTaskAPI = (data) => request({
   url: 'ips/outbound/picking',
@@ -119,3 +117,4 @@ export const addPickTaskAPI = (data) => request({
   data
 })
 
+/* 拣货 */
