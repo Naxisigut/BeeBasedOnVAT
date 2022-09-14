@@ -3,12 +3,14 @@
 @import './transition.scss';
 @import './element-ui.scss';
 @import './sidebar.scss';
-@import './btns.scss';
-@import './detailPanel.scss';
-@import './tables.scss';
-@import './pagnation.scss';
-@import './dialogs.scss';
-@import './elementGlobalChange.scss';
+
+
+@import './lcc-custom-styles/btns.scss';
+@import './lcc-custom-styles/detailPanel.scss';
+@import './lcc-custom-styles/tables.scss';
+@import './lcc-custom-styles/pagnation.scss';
+@import './lcc-custom-styles/dialogs.scss';
+@import './lcc-custom-styles/elementGlobalChange.scss';
 
 body {
   height: 100%;

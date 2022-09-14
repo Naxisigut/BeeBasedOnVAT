@@ -71,5 +71,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@/styles/searchBox.scss'
+@import '~@/styles/lcc-custom-styles/searchBox.scss'
 </style>
