@@ -200,7 +200,6 @@ export default {
 
     /* 点击拣货完成按钮，批量完成拣货 */
     async multiPick() {
-      this.$refs.pickBtn.children.forEach((item) => item.blur()) // 修复点击后样式改变的bug
       this.$refs.pickTasksTable.multiComplete()
     }
 

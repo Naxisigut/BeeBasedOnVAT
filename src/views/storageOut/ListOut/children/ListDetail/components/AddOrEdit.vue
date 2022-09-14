@@ -124,7 +124,7 @@
       </div>
 
       <!-- btns -->
-      <div ref="btns" class="centerBtns">
+      <div ref="btns" v-blur class="centerBtns">
         <el-button v-show="currStep === 0" class="grayBtn biggerBtn" @click="back">返回</el-button>
         <el-button v-show="currStep !== 0" class="grayBtn biggerBtn" @click="toPrevious">上一步</el-button>
         <el-button v-show="currStep !== 2" class="yellowBtn biggerBtn" @click="checkToNext">下一步</el-button>
@@ -305,10 +305,6 @@ export default {
     /**
      * btns functions
      */
-    /* 修复element btn 点击后样式bug */
-    clearBtns() {
-      this.$refs.btns.children.forEach((btn) => btn.blur())
-    },
     /* 校验并回调 方法 */
     async valiAndCb(valiArr, cb = () => {}) {
       let res = true
@@ -322,7 +318,6 @@ export default {
     },
     /* 点击下一页 */
     async checkToNext() {
-      this.clearBtns()
       const valiArr1 = ['code', 'warehouseId', 'areaId', 'ownerId', 'type']
       const valiArr2 = ['billCode', 'carrierId', 'planOutTime', 'driverName', 'driverPhone', 'license', 'receiverName']
       if (this.currStep === 0) {
@@ -336,12 +331,10 @@ export default {
     },
     /* 点击上一页 */
     toPrevious() {
-      this.clearBtns()
       this.currStep--
     },
     /* 点击返回上一个路由 */
     back() {
-      this.clearBtns()
       this.$router.back()
     },
     /* 点击提交按钮 */

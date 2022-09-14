@@ -8,7 +8,7 @@
       <!-- 表格 -->
       <ListOutTable :table-opts="tableOpts" :table-data="tableData" @update="handlePageChange">
         <template #topActs>
-          <div ref="addBtn">
+          <div ref="addBtn" v-blur>
             <el-button class="greenBtn" @click="add">新增出库单</el-button>
           </div>
         </template>
@@ -204,7 +204,6 @@ export default {
 
     /* 新增出货单 */
     async add() {
-      this.$refs.addBtn.children.forEach((item) => item.blur()) // 修复点击后样式改变的bug
       this.$router.push({
         name: 'ListDetail',
         params: { id: 'null' }

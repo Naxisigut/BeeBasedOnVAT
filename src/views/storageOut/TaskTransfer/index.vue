@@ -217,15 +217,7 @@ export default {
     /* 无论page怎么变，都通过searchBox来更新列表，因为需要囊括其中的搜索项 */
     handlePageChange() {
       this.getPickTaskList()
-    },
-
-    /* 点击拣货完成，批量完成拣货 */
-    async multiPick() {
-      this.$refs.pickBtn.children.forEach((item) => item.blur()) // 修复点击后样式改变的bug
-
-      this.$refs.pickTasksTable.multiComplete()
     }
-
   }
 }
 </script>

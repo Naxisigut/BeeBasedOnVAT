@@ -3,6 +3,8 @@ const getters = {
   token: state => state.user.token,
   avatar: state => state.user.avatar,
   name: state => state.user.name,
+
+  /* 新增出库单相关 */
   addedGoods: state => state.storageOut.addedGoods,
   masterId: state => state.storageOut.newBound.id,
   ownerId: state => state.storageOut.newBound.ownerId,

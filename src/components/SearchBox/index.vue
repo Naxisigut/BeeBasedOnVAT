@@ -7,7 +7,7 @@
         </slot>
       </el-form-item>
     </el-form>
-    <div ref="btns" class="btns">
+    <div ref="btns" v-blur class="btns">
       <el-button class="yellowBtn normalBtn" @click="apply">搜索</el-button>
       <el-button class="grayBtn normalBtn" @click="reset">重置</el-button>
     </div>
@@ -48,16 +48,10 @@ export default {
     })
   },
   methods: {
-    /* 处理elementBtn点击后不还原的bug */
-    blurBtn() {
-      this.$refs.btns.children.forEach((btn) => btn.blur())
-    },
     apply() {
-      this.blurBtn()
       this.searchFunc(this.form)
     },
     reset() {
-      this.blurBtn()
       this.defaultReset()
       this.resetFunc()
     },

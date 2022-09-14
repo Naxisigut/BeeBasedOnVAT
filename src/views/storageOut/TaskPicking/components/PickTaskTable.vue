@@ -48,7 +48,7 @@
           width="240"
         >
           <template v-slot="{row}">
-            <div class="rowActs">
+            <div v-blur class="rowActs">
               <a v-if="row.status === '待分配' " href="javascript:;" @click="distributeChoose(row)">分配</a>
               <a v-if="row.status === '拣货中' " href="javascript:;" @click="recordPick(row)">拣选录入</a>
               <a v-if="row.status === '拣货中' " href="javascript:;" @click="complete(row)">拣货完成</a>
