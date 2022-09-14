@@ -130,36 +130,7 @@ export default {
           propName: 'completionTime'
         }
       ],
-      tableData: [
-        {
-          'id': '799201066565506081',
-          'createTime': '2022-09-12 19:18:22',
-          'createUser': '0',
-          'updateTime': '2022-09-13 15:00:06',
-          'updateUser': '0',
-          'masterId': '798994367153967841',
-          'code': 'JHRW000002',
-          'waveCode': 'BC000002',
-          'outboundCode': 'HP000015',
-          'ownerId': '798980939605607297',
-          'warehouseId': '798976929725153313',
-          'areaId': '798977750407840001',
-          'pickingNum': 1,
-          'personName': '张文礼',
-          'realNum': 1,
-          'differenceNum': 0,
-          'completionTime': '2022-09-12 09:00:06',
-          'status': 3,
-          'remark': '',
-          'createName': '刘世娟',
-          'updateName': '刘世娟',
-          'logicDel': 1,
-          'warehouseName': '1号仓库',
-          'areaName': '存储区',
-          'ownerName': '王姐',
-          'ownerCode': 'HZ000003'
-        }
-      ],
+      tableData: [],
       pageInfo: {
         size: 10,
         current: 1,
@@ -183,7 +154,6 @@ export default {
           label: '拣货完成'
         }
       ]
-      // selections: []
     }
   },
   computed: {
@@ -196,8 +166,9 @@ export default {
     this.getPickTaskList()
   },
   methods: {
+    /* 数据请求和处理方法 */
     async getPickTaskList(extraParams) {
-      /* 搜索功能有问题，只有不带其它参数时可以成功请求 */
+      /* 搜索功能有问题，只有不带其它参数时才可以成功请求 */
       const res = await getPickTasksAPI({ ...this.pageInfo, ...extraParams, id: '' })
       const data = res.records
       this.handleData(data)
@@ -213,6 +184,7 @@ export default {
       })
     },
 
+    /* 搜索栏相关方法 */
     async searchFunc(params) {
       this.getPickTaskList(params)
     },
@@ -221,14 +193,14 @@ export default {
     },
 
     /* 无论page怎么变，都通过searchBox来更新列表，因为需要囊括其中的搜索项 */
+    /* 但因为后台bug，这里没有带搜索项 */
     handlePageChange() {
       this.getPickTaskList()
     },
 
-    /* 点击拣货完成，批量完成拣货 */
+    /* 点击拣货完成按钮，批量完成拣货 */
     async multiPick() {
       this.$refs.pickBtn.children.forEach((item) => item.blur()) // 修复点击后样式改变的bug
-
       this.$refs.pickTasksTable.multiComplete()
     }
 

@@ -140,3 +140,19 @@
      border-color: #FFB200FF;
    }
 }
+
+/* 表格内可编辑单元格的样式 */
+.editCell{
+  .iStyle{
+    color:#FFB200FF;
+    float: right;
+    margin-top: 1px;
+    font-size: 20px;
+  }
+  .tableEdit{
+    .el-input__inner{
+      height: 22px;
+      line-height: 22px;
+    }
+  }
+}

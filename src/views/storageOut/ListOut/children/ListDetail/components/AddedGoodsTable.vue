@@ -44,7 +44,7 @@
         class-name="colClass"
       >
         <template v-slot="{row}">
-          <div>
+          <div v-editCell class="editCell">
             <span>{{ row.outboundNum }}</span>
             <el-input
               v-model="row.outboundNum"
@@ -173,23 +173,11 @@ export default {
       await changeNumAPI(params)
     },
 
-    /* 点击操作时切换显示输入框且发送请求 */
+    /* 点击操作时发送请求 */
     async editNum(e, { outboundNum, id }) {
       const num = e.target.parentNode.children[0]
-      const ipt = e.target.parentNode.children[1]
-      const icon = e.target
-      icon.classList.toggle('el-icon-edit')
-      icon.classList.toggle('el-icon-check')
-      /* 控制两个元素的显隐 */
-      if (num.style.display !== 'none') {
-        num.style.display = 'none'
-        ipt.style.display = 'inline-block'
-        ipt.querySelector('input').focus()
-      } else {
-        /* 非0判断 */
+      if (num.style.display === 'none') {
         try {
-          num.style.display = 'inline'
-          ipt.style.display = 'none'
           if (+outboundNum) {
             await this.changeGoodsNum({ outboundNum, id })
           } else {
@@ -198,7 +186,7 @@ export default {
         } catch (error) {
           console.log('error =', error)
         } finally {
-          await this.$store.dispatch('storageOut/updateAddedGoods')
+          await this.getTasksList()
         }
       }
     }
@@ -207,15 +195,5 @@ export default {
 </script>
 
 <style lang="scss">
-.iStyle{
-  color:#FFB200FF;
-  float: right;
-  margin-top: 5px;
-}
-.tableEdit{
-  .el-input__inner{
-    height: 22px;
-    line-height: 22px;
-  }
-}
+
 </style>

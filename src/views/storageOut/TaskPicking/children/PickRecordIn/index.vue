@@ -40,7 +40,7 @@
         class-name="colClass"
       >
         <template v-slot="{row}">
-          <div>
+          <div v-editCell class="editCell">
             <span>{{ row.pickingNum || 0 }}</span>
             <el-input
               v-model="row.pickingNum"
@@ -92,7 +92,7 @@ export default {
   name: 'PickRecordIn',
   data() {
     return {
-      tasksList: [],
+      tasksList: [{ pickingNum: 0 }],
       pageInfo: {
         size: 10,
         current: 1,
@@ -134,25 +134,15 @@ export default {
           label: '拣货数量',
           propName: 'outboundNum'
         }
-        // {
-        //   index: 8,
-        //   label: '实拣数量',
-        //   propName: 'pickingNum'
-        // },
-        // {
-        //   index: 9,
-        //   label: '差异数',
-        //   propName: 'differenceNum'
-        // }
       ]
     }
   },
   computed: {
     plan() {
-      return this.tasksList.reduce((curr, item) => curr + item.outboundNum, 0)
+      return this.tasksList.reduce((curr, item) => curr + (+item.outboundNum), 0)
     },
     actual() {
-      return this.tasksList.reduce((curr, item) => curr + item.pickingNum, 0)
+      return this.tasksList.reduce((curr, item) => curr + (+item.pickingNum), 0)
     },
     masterId() {
       return this.$route.params.id
@@ -179,33 +169,11 @@ export default {
     handlePageChange() {
       this.getTasksList()
     },
-    async changePickNum(data) {
-      const res = await changePickNumAPI(data)
-      console.log('res =', res)
-    },
-
-    /* 点击操作时切换显示输入框且发送请求 */
     async editNum(e, { pickingNum, id }) {
       const num = e.target.parentNode.children[0]
-      const ipt = e.target.parentNode.children[1]
-      const icon = e.target
-      icon.classList.toggle('el-icon-edit')
-      icon.classList.toggle('el-icon-check')
-      /* 控制两个元素的显隐 */
-      if (num.style.display !== 'none') {
-        num.style.display = 'none'
-        ipt.style.display = 'inline-block'
-        ipt.querySelector('input').focus()
-      } else {
-        /* 非0判断 */
+      if (num.style.display === 'none') {
         try {
-          num.style.display = 'inline'
-          ipt.style.display = 'none'
-          // if (+pickingNum) {
           await changePickNumAPI({ pickingNum, id })
-          // } else {
-          // this.$message.warning('不能修改数量为0！请直接删除')
-          // }
         } catch (error) {
           console.log('error =', error)
         } finally {
@@ -214,26 +182,8 @@ export default {
       }
     }
   }
-  // /* 离开路由时销毁之前的出库单信息，方便下次渲染 */
-  // beforeRouteUpdate(to, from, next) {
-  //   this.$store.dispatch('storageOut/init')
-  //   next()
-  // }
 }
 </script>
 
-<style lang="scss" scoped>
-
-.iStyle{
-  color:#FFB200FF;
-  float: right;
-  margin-top: 5px;
-  font-size: 20px;
-}
-.tableEdit{
-  .el-input__inner{
-    height: 22px;
-    line-height: 22px;
-  }
-}
+<style lang="scss">
 </style>

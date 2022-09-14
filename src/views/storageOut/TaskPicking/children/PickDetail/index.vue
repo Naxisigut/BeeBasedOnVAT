@@ -45,20 +45,15 @@
       @size-change="handlePageChange"
       @current-change="handlePageChange"
     />
-    <!-- <component :is="componentId" /> -->
   </div>
 </template>
 
 <script>
-// import AddOrEdit from './components/AddOrEdit.vue'
-// import CheckDetail from './components/CheckDetail.vue'
 import { getTaskDetailAPI } from '@/api/storageOut/pickTask'
 export default {
   name: 'PickDetail',
-  // components: { AddOrEdit, CheckDetail },
   data() {
     return {
-      // tempFlag: this.$store.getters.masterId,
       tasksList: [],
       pageInfo: {
         size: 10,
@@ -115,13 +110,6 @@ export default {
     }
   },
   computed: {
-    // isCheck() {
-    //   return !this.tempFlag && this.$route.params.id !== 'null'
-    // },
-    // componentId() {
-    //   if (this.isCheck) return 'CheckDetail'
-    //   return 'AddOrEdit'
-    // }
     plan() {
       return this.tasksList.reduce((curr, item) => curr + item.outboundNum, 0)
     },
@@ -149,11 +137,6 @@ export default {
       this.getTasksList()
     }
   }
-  // /* 离开路由时销毁之前的出库单信息，方便下次渲染 */
-  // beforeRouteUpdate(to, from, next) {
-  //   this.$store.dispatch('storageOut/init')
-  //   next()
-  // }
 }
 </script>
 
