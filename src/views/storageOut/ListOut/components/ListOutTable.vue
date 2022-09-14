@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { addPickTaskAPI, delOutboundAPI } from '@/api/storageOut'
+import { addPickTaskAPI, delOutboundAPI } from '@/api/storageOut/listOutbound'
 export default {
   props: {
     tableData: {

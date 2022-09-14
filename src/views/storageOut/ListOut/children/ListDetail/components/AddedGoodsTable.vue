@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { changeNumAPI } from '@/api/storageOut'
+import { changeNumAPI } from '@/api/storageOut/listOutbound'
 import { mapGetters } from 'vuex'
 export default {
   props: {

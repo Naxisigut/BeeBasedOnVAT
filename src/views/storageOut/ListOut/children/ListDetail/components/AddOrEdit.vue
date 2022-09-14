@@ -147,7 +147,7 @@ import {
   getCarrierListAPI,
   getWareAreaListAPI,
   getWareHouseListAPI,
-  getOutboundAPI } from '@/api/storageOut'
+  getOutboundAPI } from '@/api/storageOut/listOutbound'
 import AddGoodsDialog from './AddGoodsDialog.vue'
 import NoGoods from '@/components/NoGoods/index.vue'
 import AddedGoodsTable from './AddedGoodsTable.vue'

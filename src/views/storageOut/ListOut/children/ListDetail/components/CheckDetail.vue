@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { getSingleDetailAPI, getDetailAPI } from '@/api/storageOut'
+import { getSingleDetailAPI, getDetailAPI } from '@/api/storageOut/listOutbound'
 export default {
   data() {
     return {

@@ -36,7 +36,7 @@
 
 <script>
 import SearchBox from '@/components/SearchBox/index.vue'
-import { getPageOutListAPI } from '@/api/storageOut'
+import { getPageOutListAPI } from '@/api/storageOut/listOutbound'
 import ListOutTable from './components/ListOutTable.vue'
 export default {
   name: 'ListOut',

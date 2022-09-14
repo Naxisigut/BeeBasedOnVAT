@@ -3,7 +3,7 @@ import { getAddedGoodsAPI,
   addNewOutAPI,
   delOutboundListAPI,
   updateOutboundAPI
-} from '@/api/storageOut'
+} from '@/api/storageOut/listOutbound'
 
 const state = {
   addedGoods: [],

@@ -32,7 +32,7 @@
 
 <script>
 import SearchBox from '@/components/SearchBox/index.vue'
-import { getStockListAPI, addStockToListAPI } from '@/api/storageOut'
+import { getStockListAPI, addStockToListAPI } from '@/api/storageOut/listOutbound'
 import NoGoods from '@/components/NoGoods/index.vue'
 import GoodsTable from './GoodsTable.vue'
 import { mapGetters } from 'vuex'
